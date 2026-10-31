@@ -3,172 +3,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Professional WhatsApp Chat Generator</title>
-  <!-- Library Konversi DOM ke Gambar Resolusi Tinggi -->
+  <title>WhatsApp Dark Mode Generator - Pixel Perfect</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Google: Roboto & Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Styling khusus Font & OS Switcher */
-    .font-android { font-family: 'Roboto', sans-serif; }
-    .font-ios { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif; }
+    body { font-family: 'Roboto', sans-serif; }
 
-    /* Pattern Motif Chat WA */
-    .wa-pattern {
-      background-color: #efeae2;
-      background-image: radial-gradient(#cbd5e1 0.75px, transparent 0.75px);
-      background-size: 12px 12px;
-    }
-    .wa-pattern-dark {
+    /* Pattern Motif Chat WA Dark Mode */
+    .wa-dark-bg {
       background-color: #0b141a;
-      background-image: radial-gradient(#1e293b 0.75px, transparent 0.75px);
-      background-size: 12px 12px;
+      background-image: radial-gradient(#1f2c34 1px, transparent 1px);
+      background-size: 16px 16px;
     }
 
-    /* iOS Chat Bubble Curve */
-    .bubble-ios-in { border-radius: 18px 18px 18px 4px; }
-    .bubble-ios-out { border-radius: 18px 18px 4px 18px; }
-    
-    /* Android Chat Bubble Curve */
-    .bubble-android-in { border-radius: 0px 8px 8px 8px; }
-    .bubble-android-out { border-radius: 8px 0px 8px 8px; }
+    /* Warna Bubble Dark Mode */
+    .bubble-dark-in {
+      background-color: #202c33;
+      border-radius: 8px 8px 8px 0px;
+    }
+    .bubble-dark-out {
+      background-color: #005c4b;
+      border-radius: 8px 8px 0px 8px;
+    }
+
+    /* Quoted Reply Dark Box */
+    .quote-box {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-left: 4px solid #00a884;
+      border-radius: 4px;
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-3 md:p-6 font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen p-3 md:p-6">
 
   <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
     
-    <!-- PANEL INPUT CONTROL (KIRI) -->
+    <!-- PANEL INPUT FORM -->
     <div class="lg:col-span-5 bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4 h-fit shadow-2xl">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h1 class="text-lg font-bold text-emerald-400">WhatsApp Generator</h1>
-        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-mono">v2.0 Pro</span>
-      </div>
+      <h1 class="text-lg font-bold text-emerald-400 border-b border-slate-800 pb-2">Pengaturan Chat (WA Dark Mode)</h1>
 
-      <!-- OS Switcher Toggle -->
-      <div>
-        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Tampilan Platform OS</label>
-        <div class="grid grid-cols-2 gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
-          <button id="btnAndroid" onclick="setOS('android')" class="py-2 text-xs font-semibold rounded-lg bg-emerald-600 text-white transition">Android</button>
-          <button id="btnIOS" onclick="setOS('ios')" class="py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition">iPhone (iOS)</button>
-        </div>
-      </div>
-
-      <!-- Input Form Elements -->
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block text-slate-400 mb-1">Nama Profil Contact</label>
-          <input type="text" id="inputName" value="Klien Impian" oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+          <label class="block text-slate-400 mb-1">Nama Kontak</label>
+          <input type="text" id="inputName" value="fifah Kos Buk..." oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-white">
         </div>
 
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-slate-400 mb-1">Foto Profil</label>
-            <input type="file" id="inputAvatar" accept="image/*" onchange="loadAvatar(event)" class="w-full text-[10px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-slate-800 file:text-slate-200">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Status Sub-Header</label>
-            <input type="text" id="inputStatus" value="online" oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
-          </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Teks Balasan (Quoted Reply Incoming)</label>
+          <input type="text" id="inputQuote" value="Udah sampe dek?" oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white">
         </div>
 
         <div>
           <label class="block text-slate-400 mb-1">Pesan Masuk (Incoming)</label>
-          <textarea id="inputTextIn" oninput="render()" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:outline-none focus:border-emerald-500">Bisa buatkan tampilan demo chat versi Android dan iPhone sekaligus?</textarea>
+          <input type="text" id="inputTextIn" value="Udah bg bru" oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white">
         </div>
 
         <div>
           <label class="block text-slate-400 mb-1">Pesan Keluar (Outgoing)</label>
-          <textarea id="inputTextOut" oninput="render()" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:outline-none focus:border-emerald-500">Tentu, ini hasil kustomisasinya. Presisi 100% mirip aslinya!</textarea>
+          <textarea id="inputTextOut" oninput="render()" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white">Ok dek tapi agak telat dikit ya dek, soalnya tadi lampu mati disini dek. Dan baru hidup dek. Terpaksa abang itu anterin yang duluan tadi ya dek</textarea>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-slate-400 mb-1">Jam Pesan</label>
-            <input type="text" id="inputTime" value="10:42" oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:outline-none focus:border-emerald-500">
+            <label class="block text-slate-400 mb-1">Jam Pesan Outgoing</label>
+            <input type="text" id="inputTimeOut" value="13:32" oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white">
           </div>
           <div>
-            <label class="block text-slate-400 mb-1">Status Centang (Outgoing)</label>
-            <select id="inputTicks" onchange="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:outline-none focus:border-emerald-500">
-              <option value="read" selected>✓✓ Dibaca (Biru)</option>
-              <option value="delivered">✓✓ Terkirim (Abu-abu)</option>
-              <option value="sent">✓ Terkirim (Satu)</option>
-            </select>
+            <label class="block text-slate-400 mb-1">Tanggal Pemisah</label>
+            <input type="text" id="inputDate" value="October 24, 2026" oninput="render()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white">
           </div>
         </div>
       </div>
 
-      <button onclick="exportImage()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
-        <span>📸</span> Generate & Download Screenshot
+      <button onclick="exportImage()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition">
+        📸 Generate Screenshot Dark Mode
       </button>
     </div>
 
-    <!-- PREVIEW DEVICE CANVAS (KANAN) -->
+    <!-- PREVIEW DEVICE CANVAS -->
     <div class="lg:col-span-7 flex justify-center items-start">
       
-      <div id="previewCard" class="w-[360px] h-[670px] bg-white flex flex-col rounded-[36px] overflow-hidden shadow-2xl border-4 border-slate-800 relative font-android">
+      <div id="previewCard" class="w-[360px] h-[720px] bg-[#0b141a] flex flex-col rounded-[28px] overflow-hidden shadow-2xl border-4 border-slate-800 relative text-white">
         
-        <!-- STATUS BAR -->
-        <div id="statusBar" class="bg-[#075e54] text-white px-5 pt-3 pb-1 flex justify-between items-center text-[11px] font-medium select-none">
-          <span id="statusTime">10:42</span>
-          <div id="statusIcons" class="flex items-center gap-1.5 text-[10px]">
+        <!-- STATUS BAR TOP -->
+        <div class="bg-[#0b141a] text-slate-300 px-5 pt-2.5 pb-1 flex justify-between items-center text-[10px] font-medium">
+          <span>12:40</span>
+          <div class="flex items-center gap-1.5 text-[9px]">
+            <span>0.18 KB/s</span>
             <span>4G</span>
-            <span class="text-[9px]">98%</span>
+            <span>46%</span>
           </div>
         </div>
 
         <!-- APP HEADER -->
-        <div id="appHeader" class="bg-[#075e54] text-white px-3 py-2 flex items-center justify-between border-b border-black/5 select-none">
+        <div class="bg-[#0b141a] px-3 py-2 flex items-center justify-between border-b border-slate-800/50">
           <div class="flex items-center gap-2.5">
-            <span id="backIcon" class="text-base cursor-pointer">←</span>
-            <div class="w-9 h-9 rounded-full overflow-hidden bg-slate-200 border border-white/20 shrink-0">
-              <img id="viewAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" class="w-full h-full object-cover">
+            <span class="text-lg">←</span>
+            <div class="relative w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden">
+              <span class="text-slate-400 text-xl">👤</span>
+              <!-- Disappearing Message Icon Badge -->
+              <div class="absolute bottom-0 right-0 bg-[#0b141a] rounded-full p-0.5">
+                <span class="text-[8px]">⏱️</span>
+              </div>
             </div>
-            <div class="leading-tight">
-              <h2 id="viewName" class="font-semibold text-xs tracking-tight">Klien Impian</h2>
-              <p id="viewStatus" class="text-[10px] text-emerald-100 opacity-90">online</p>
-            </div>
+            <h2 id="viewName" class="font-medium text-sm tracking-tight truncate max-w-[140px]">fifah Kos Buk...</h2>
           </div>
-          <div id="headerActions" class="flex items-center gap-3.5 text-sm pr-1">
+          <div class="flex items-center gap-4 text-base pr-1 text-slate-200">
             <span>📹</span>
             <span>📞</span>
             <span class="text-xs">⋮</span>
           </div>
         </div>
 
-        <!-- CHAT CONTAINER -->
-        <div class="flex-1 wa-pattern p-3 flex flex-col justify-end space-y-2.5 overflow-y-auto">
+        <!-- CHAT CONTAINER AREA -->
+        <div class="flex-1 wa-dark-bg p-3 flex flex-col justify-end space-y-3 overflow-y-auto">
           
-          <!-- BUBBLE INCOMING -->
-          <div id="bubbleIn" class="self-start max-w-[82%] bg-white p-2.5 bubble-android-in shadow-[0_1px_0.5px_rgba(0,0,0,0.13)] text-xs text-slate-900 relative">
-            <p id="viewTextIn" class="leading-relaxed">Bisa buatkan tampilan demo chat versi Android dan iPhone sekaligus?</p>
-            <span id="viewTimeIn" class="text-[9px] text-slate-400 float-right ml-2 mt-1">10:41</span>
+          <!-- DATE DIVIDER -->
+          <div class="self-center bg-[#182229] text-slate-400 text-[10px] px-2.5 py-1 rounded-md shadow-sm border border-slate-800/30">
+            <span id="viewDate">October 24, 2026</span>
           </div>
 
-          <!-- BUBBLE OUTGOING -->
-          <div id="bubbleOut" class="self-end max-w-[82%] bg-[#d9fdd3] p-2.5 bubble-android-out shadow-[0_1px_0.5px_rgba(0,0,0,0.13)] text-xs text-slate-900 relative">
-            <p id="viewTextOut" class="leading-relaxed">Tentu, ini hasil kustomisasinya. Presisi 100% mirip aslinya!</p>
+          <!-- INCOMING CHAT WITH QUOTE -->
+          <div class="self-start max-w-[85%] bubble-dark-in p-2 shadow-sm text-xs text-slate-100 relative">
+            <div class="quote-box p-1.5 mb-1 text-[11px]">
+              <span class="text-[#00a884] font-semibold block text-[10px]">You</span>
+              <p id="viewQuote" class="text-slate-300 truncate">Udah sampe dek?</p>
+            </div>
+            <p id="viewTextIn" class="leading-relaxed">Udah bg bru</p>
+            <span class="text-[9px] text-slate-400 float-right ml-3 mt-1">19:58</span>
+          </div>
+
+          <!-- OUTGOING CHAT -->
+          <div class="self-end max-w-[85%] bubble-dark-out p-2 shadow-sm text-xs text-slate-100 relative">
+            <p id="viewTextOut" class="leading-relaxed">Ok dek tapi agak telat dikit ya dek, soalnya tadi lampu mati disini dek. Dan baru hidup dek. Terpaksa abang itu anterin yang duluan tadi ya dek</p>
             <div class="flex items-center justify-end gap-1 mt-0.5">
-              <span id="viewTimeOut" class="text-[9px] text-slate-500">10:42</span>
-              <span id="viewTicks" class="text-blue-500 text-[11px] font-bold">✓✓</span>
+              <span id="viewTimeOut" class="text-[9px] text-slate-300">13:32</span>
+              <span class="text-[#53bdeb] text-[11px] font-bold">✓✓</span>
             </div>
           </div>
 
         </div>
 
         <!-- INPUT FOOTER BAR -->
-        <div id="appFooter" class="bg-slate-100 p-2 flex items-center gap-2 select-none">
-          <div class="flex-1 bg-white rounded-full px-3 py-1.5 text-xs text-slate-400 flex items-center gap-2 shadow-sm">
+        <div class="bg-[#0b141a] p-2 flex items-center gap-2">
+          <div class="flex-1 bg-[#1f2c34] rounded-full px-3 py-2 text-xs text-slate-400 flex items-center gap-2">
             <span>😊</span>
-            <span class="flex-1">Ketik pesan</span>
-            <span class="text-slate-400">📎</span>
+            <span class="flex-1 text-slate-300">Message</span>
+            <span>📎</span>
+            <span>📷</span>
           </div>
-          <div id="micButton" class="w-8 h-8 rounded-full bg-[#075e54] text-white flex items-center justify-center text-xs shadow">🎙️</div>
+          <div class="w-9 h-9 rounded-full bg-[#00a884] text-slate-950 flex items-center justify-center text-sm font-bold shadow">🎙️</div>
         </div>
 
       </div>
@@ -178,87 +164,13 @@
   </div>
 
   <script>
-    let currentOS = 'android';
-
-    function setOS(os) {
-      currentOS = os;
-      const card = document.getElementById('previewCard');
-      const header = document.getElementById('appHeader');
-      const statusBar = document.getElementById('statusBar');
-      const footer = document.getElementById('appFooter');
-      const bubbleIn = document.getElementById('bubbleIn');
-      const bubbleOut = document.getElementById('bubbleOut');
-      const actions = document.getElementById('headerActions');
-      const backIcon = document.getElementById('backIcon');
-      const micBtn = document.getElementById('micButton');
-
-      if (os === 'ios') {
-        document.getElementById('btnIOS').className = "py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white transition";
-        document.getElementById('btnAndroid').className = "py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition";
-
-        card.className = "w-[360px] h-[670px] bg-white flex flex-col rounded-[44px] overflow-hidden shadow-2xl border-4 border-slate-800 relative font-ios";
-        statusBar.className = "bg-[#f6f6f6] text-slate-900 px-6 pt-3 pb-1 flex justify-between items-center text-xs font-bold";
-        header.className = "bg-[#f6f6f6] text-slate-900 px-3 py-2 flex items-center justify-between border-b border-slate-200";
-        backIcon.innerText = "‹ Chats";
-        backIcon.className = "text-blue-500 text-xs font-normal mr-1";
-        actions.innerHTML = "<span class='text-blue-500'>📹</span><span class='text-blue-500'>📞</span>";
-        
-        bubbleIn.className = "self-start max-w-[82%] bg-white p-2.5 bubble-ios-in shadow-sm text-xs text-slate-900";
-        bubbleOut.className = "self-end max-w-[82%] bg-[#e1f7cb] p-2.5 bubble-ios-out shadow-sm text-xs text-slate-900";
-
-        footer.className = "bg-[#f6f6f6] p-2 flex items-center gap-2 border-t border-slate-200";
-        micBtn.className = "w-7 h-7 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs shadow";
-      } else {
-        document.getElementById('btnAndroid').className = "py-2 text-xs font-semibold rounded-lg bg-emerald-600 text-white transition";
-        document.getElementById('btnIOS').className = "py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition";
-
-        card.className = "w-[360px] h-[670px] bg-white flex flex-col rounded-[36px] overflow-hidden shadow-2xl border-4 border-slate-800 relative font-android";
-        statusBar.className = "bg-[#075e54] text-white px-5 pt-3 pb-1 flex justify-between items-center text-[11px] font-medium";
-        header.className = "bg-[#075e54] text-white px-3 py-2 flex items-center justify-between border-b border-black/5";
-        backIcon.innerText = "←";
-        backIcon.className = "text-base";
-        actions.innerHTML = "<span>📹</span><span>📞</span><span class='text-xs'>⋮</span>";
-
-        bubbleIn.className = "self-start max-w-[82%] bg-white p-2.5 bubble-android-in shadow-[0_1px_0.5px_rgba(0,0,0,0.13)] text-xs text-slate-900";
-        bubbleOut.className = "self-end max-w-[82%] bg-[#d9fdd3] p-2.5 bubble-android-out shadow-[0_1px_0.5px_rgba(0,0,0,0.13)] text-xs text-slate-900";
-
-        footer.className = "bg-slate-100 p-2 flex items-center gap-2";
-        micBtn.className = "w-8 h-8 rounded-full bg-[#075e54] text-white flex items-center justify-center text-xs shadow";
-      }
-      render();
-    }
-
     function render() {
-      document.getElementById('viewName').innerText = document.getElementById('inputName').value || 'Nama Profil';
-      document.getElementById('viewStatus').innerText = document.getElementById('inputStatus').value || '';
+      document.getElementById('viewName').innerText = document.getElementById('inputName').value || 'Nama Kontak';
+      document.getElementById('viewQuote').innerText = document.getElementById('inputQuote').value || '';
       document.getElementById('viewTextIn').innerText = document.getElementById('inputTextIn').value || '';
       document.getElementById('viewTextOut').innerText = document.getElementById('inputTextOut').value || '';
-      
-      const timeVal = document.getElementById('inputTime').value || '10:42';
-      document.getElementById('viewTimeIn').innerText = timeVal;
-      document.getElementById('viewTimeOut').innerText = timeVal;
-
-      const ticks = document.getElementById('inputTicks').value;
-      const ticksEl = document.getElementById('viewTicks');
-      if (ticks === 'read') {
-        ticksEl.innerText = '✓✓';
-        ticksEl.className = 'text-blue-500 text-[11px] font-bold';
-      } else if (ticks === 'delivered') {
-        ticksEl.innerText = '✓✓';
-        ticksEl.className = 'text-slate-400 text-[11px] font-bold';
-      } else {
-        ticksEl.innerText = '✓';
-        ticksEl.className = 'text-slate-400 text-[11px] font-bold';
-      }
-    }
-
-    function loadAvatar(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const r = new FileReader();
-        r.onload = ev => document.getElementById('viewAvatar').src = ev.target.result;
-        r.readAsDataURL(file);
-      }
+      document.getElementById('viewTimeOut').innerText = document.getElementById('inputTimeOut').value || '13:32';
+      document.getElementById('viewDate').innerText = document.getElementById('inputDate').value || 'October 24, 2026';
     }
 
     function exportImage() {
@@ -266,11 +178,11 @@
       htmlToImage.toPng(node, { pixelRatio: 3 })
         .then(dataUrl => {
           const link = document.createElement('a');
-          link.download = `whatsapp-${currentOS}-screenshot.png`;
+          link.download = `whatsapp-darkmode-screenshot.png`;
           link.href = dataUrl;
           link.click();
         })
-        .catch(err => alert('Gagal mengunduh gambar: ' + err));
+        .catch(err => alert('Gagal mengunduh: ' + err));
     }
   </script>
 </body>
